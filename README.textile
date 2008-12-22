@@ -1,0 +1,37 @@
+h1. nFrame Form Builder
+
+This is a custom form builder for use in Rails.  It makes creating consistent forms easy.
+
+It implements forms in the way that we at nFrame prefer to implement forms.  This basically means most elements look something like the following:
+
+<p>
+  <label for="some_element">Some Element</label>
+  <input type="text" id="some_element" name="some[element]" />
+</p>
+
+h2. Installation
+
+script/plugin install git://github.com/mileszs/nframe_form_builder.git
+
+h2. Usage
+
+In your @form_for@ statement, pass the option @:builder => NframeFormBuilder@
+
+Here's a truncated example from one of our apps.  As you can see, labels are overridable, @class@ is assignable, and you can add a little description of the field using the @:help@ option.
+
+<pre>
+  <code>
+    <% form_for(@quote, :url => quote_path(@quote), :html => { :method => :put }, :builder => NframeFormBuilder ) do |f| %>
+      <% field_set_tag "" do %>
+        <%= f.text_field :name %>
+        <%= f.select :period_id, Period.all.collect {|p| [p.name, p.id] }, :label => 'Period' %>
+        <%= f.text_area :internal_notes, :rows => 10, :cols => 20, :help => 'Only nFrame-owned eyes will see it' %>
+        <%= f.text_field :effective_on, :class => 'date' %>
+      <% end %>
+    <% end %>
+  </code>
+</pre>
+
+h2. Credit Where Credit is Due
+
+This is mostly just a customization/simplification of "Semantic Form Builder":http://github.com/rubypond/semantic_form_builder/tree/master .
