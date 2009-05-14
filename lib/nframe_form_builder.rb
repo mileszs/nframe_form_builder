@@ -8,7 +8,6 @@ class NframeFormBuilder < ActionView::Helpers::FormBuilder
     label = options[:label] ? options.delete(:label) : default_label
     options[:class] ||= ""
     options[:class] += options[:required] ? " required" : ""
-    label += "<strong><sup>*</sup></strong>" if options[:required]
     [field_name, label, options]
   end
 
