@@ -16,6 +16,12 @@ class NframeFormBuilder < ActionView::Helpers::FormBuilder
     wrapping("text", field_name, label, super, options)
   end
 
+  def money_field(method, options = {})
+    options[:value] ||= ''
+    options[:value] += format('%.2f', @object.send(method)) if @object.send(method)
+    text_field(method, options)
+  end
+
   def file_field(method, options = {})
     field_name, label, options = field_settings(method, options)
     wrapping("file", field_name, label, super, options)
