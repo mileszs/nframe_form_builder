@@ -2,13 +2,41 @@ h1. nFrame Form Builder
 
 This is a custom form builder for use in Rails.  It makes creating consistent forms easy.
 
-It implements forms in the way that we at nFrame prefer to implement forms.  This basically means most elements look something like the following:
+It implements forms in the way that we at nFrame prefer to implement forms.  So, this:
+
+<pre>
+  <code>
+  <%= f.input :some_element %>
+  </code>
+</pre>
+
+... becomes:
 
 <pre>
   <code>
     <p>
       <label for="some_element">Some Element</label>
       <input type="text" id="some_element" name="some[element]" />
+    </p>
+  </code>
+</pre>
+
+Or, a bit more complicated:
+
+<pre>
+  <code>
+  <%= f.input :some_element_id, :label => 'Some Element', :help => 'e.g. input', :more_help => 'more_more_help' %>
+  </code>
+</pre>
+
+... becomes:
+
+<pre>
+  <code>
+    <p>
+      <label for="some_element">Some Element<br /><small><span class="help">e.g. input</span></small></label>
+      <input type="text" id="some_element_id" name="some[element_id]" />
+      <img src="/images/help.png" alt="help" id="more_more_help" />
     </p>
   </code>
 </pre>
