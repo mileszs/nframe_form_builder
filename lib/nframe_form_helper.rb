@@ -1,19 +1,23 @@
 module NframeFormHelper
       
   def wrapping(type, field_name, label, field, options = {})
-    help = %Q{<br /><small>#{options[:help]}</small>} if options[:help]
+    help = %Q{<br /><small><span class="help">#{options[:help]}</span></small>} if options[:help]
+    more_help = "&nbsp;" + @template.image_tag('help.png', :alt => "help", :id => options[:more_help]) if options[:more_help]
     to_return = []
     to_return << %Q{<p class="#{options[:class]}">}
 
     if !(["radio", "check", "submit"].include?(type))
       to_return << %Q{<label for="#{field_name}" class="#{options[:class]}">#{label}#{help}</label>} unless ["radio","check", "submit"].include?(type)
       to_return << field
+      to_return << more_help
     elsif ["radio", "check"].include?(type)
       to_return << %Q{<label for="#{field_name}">&nbsp;</label>}
       to_return << field
       to_return << %Q{<label for="#{field_name}" class="#{options[:class]}">#{label}</label>}
+      to_return << more_help
     else
       to_return << field
+      to_return << more_help
     end
 
     to_return << %Q{</p>}
